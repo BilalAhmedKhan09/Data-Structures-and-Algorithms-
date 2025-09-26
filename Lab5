@@ -1,0 +1,74 @@
+TASK1: 
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+void guess(int num){
+    int num1,num2;
+        cout<<"Guess a Number : ";
+        cin>>num1;
+        if(num1==num){
+            cout<<"player1 wins";
+            return;
+        }
+        else if(num1>num){
+            cout <<"guess lower"<<endl;
+        }
+        else{
+            cout<<"guess higher"<<endl;
+        }
+        cout<<"Player 2:"<<endl;
+        cout<<"Guess a Number : ";
+        cin>>num2;
+        if(num2==num){
+            cout<<"player2 wins";
+            return;
+        }
+        else if(num2>num){
+            cout <<"guess lower"<<endl;
+        }
+        else{
+            cout<<"guess higher"<<endl;
+        }
+        guess(num);
+}
+
+
+int main() {
+    srand(time(0));
+    int val = 1 + (rand() % (100));
+    guess(val);
+}
+
+
+
+TASK 2: 
+
+#include<iostream>
+
+using namespace std;
+
+void traverse(int x, int y, int arr[4][4]){
+    if(x!=4 & y!=4){
+        if((x+1)!=0 & x!=4){
+            x += 1;
+            cout<<"x: "<<x<<"  y: "<<y<<endl;
+            traverse(x, y);
+        }
+        else if(y!=4 & y != 0){
+            y += 1;
+            cout<<"x: "<<x<<"  y: "<<y<<endl;
+            traverse(x,y);
+        }
+    }
+    if(x==4,y==4){
+        cout<<"You are here"<<endl;
+    }
+}
+
+int main(){
+    traverse(0,0);
+}
