@@ -1,0 +1,17 @@
+// A queue is an ideal data structure because it operates based on the FIFO (First In, First Out) principle, meaning the first item added is the first one to be processed.
+
+// How it works:
+
+// Enqueue: Add a new item (order with its quantity) to the back of the queue.
+
+// Dequeue: Remove an order from the front of the queue once it's processed.
+
+// Preventing Issues:
+
+// Overflow: Use a dynamic queue (like a linked list) that grows as needed to handle more orders.
+
+// Underflow: Before dequeuing, check if the queue is empty to avoid trying to remove an item from an empty queue.
+
+// Printing Orders:
+
+// Each order should be printed as it is dequeued, displaying the sequence in which they were received.
