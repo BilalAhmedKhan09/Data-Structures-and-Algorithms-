@@ -3,35 +3,37 @@
 using namespace std;
 
 void sort(int arr[], int start, int mid, int end){
-    int size = end - start + 1;
-    int temp[size];
+    int size = end-start+1;
     int left = start;
     int right = mid+1;
+    int *temp = new int[size];
     int index = 0;
     while(left<=mid && right<=end){
         if(arr[left] < arr[right]){
-            temp[index] = arr[left]; 
+            temp[index] = arr[left];
             left++;
+            index++;
         }
         else{
             temp[index] = arr[right];
             right++;
+            index++;
         }
-        index++;
     }
-    while(left<=mid){
+    while(left <= mid){
         temp[index] = arr[left];
         left++;
         index++;
     }
-    while(right<=end){
+    while(right <= end){
         temp[index] = arr[right];
-        index++;
         right++;
+        index++;
     }
-    for(int i=0; i<size; i++){
-        arr[start+i] = temp[i];
+    for(int i=0;i<size;i++){
+        arr[start+i]  = temp[i];
     }
+    delete[] temp;
 }
 
 void mergesort(int arr[], int start, int end){
