@@ -41,6 +41,16 @@ int max (int a , int b){
     return a>b?a:b;
 }
 
+Node *minimum(Node *n){
+    if(n == NULL){
+        return n;
+    }
+    else if(n->left == NULL){
+        return n;
+    }
+    return minimum(n->left);
+}
+
 Node *leftrotate(Node *b){
     Node *d = b->right;
     Node *c = d->left;
@@ -92,6 +102,50 @@ Node *Insert(Node*n, int key){
     return n;
 }
 
+Node *Delete(Node *n, int key){
+    if(n == NULL){
+        return n;
+    }
+    else if(key < n->val){
+        n->left = Delete(n->left, key);
+    }
+    else if(key > n->val){
+        n->right = Delete(n->right,key);
+    }
+    else{
+        if(n->right == NULL){
+            Node *temp = n->left;
+            delete n;
+            return temp;
+        }
+        if(n->left == NULL){
+            Node *temp = n->right;
+            delete n;
+            return temp;
+        }
+        Node *temp = minimum(n->right);
+        n->val = temp->val;
+        n->right = Delete(n->right, temp->val);
+    }
+    n->height = 1 + max(getheight(n->left), getheight(n->right));
+    int bf = getbalancefactor(n);   
+    if(bf > 1 && getbalancefactor(n->left) >= 0){ //left-left
+        return rightrotate(n);
+    }
+    else if(bf > 1 && getbalancefactor(n->left) < 0){ //left-right
+        n->left = leftrotate(n->left);
+        return rightrotate(n);
+    }
+    else if(bf < -1 && getbalancefactor(n->right) <= 0){
+        return leftrotate(n);
+    }
+    else if(bf < -1 && getbalancefactor(n->right) > 0){
+        n->right = rightrotate(n->right);
+        return leftrotate(n);
+    }
+    return n;
+}
+
 void preorder(Node *root)
 {
     if(root != NULL)
@@ -111,7 +165,6 @@ int main(){
     root = Insert(root, 40);
     root = Insert(root, 50);
     root = Insert(root, 25);
-     
     /* The final constructed AVL Tree structure is:
                 30
             /    \
@@ -123,4 +176,8 @@ int main(){
             "constructed AVL tree is \n";
     preorder(root); // Expected output: 30 20 10 25 40 50
     cout << endl;
+    root = Delete(root,40);
+    root = Delete(root,50);
+    // 20,10,30,25
+    preorder(root);
 }
