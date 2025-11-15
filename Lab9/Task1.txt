@@ -1,0 +1,23 @@
+TASK 1: Inserting Student 15 into an AVL Tree
+
+Initial AVL Tree Structure (10, 20, 30, 40, 50):
+Root: 30
+Left Subtree: 10 (Left child of 30), 20 (Right child of 10)
+Right Subtree: 40 (Right child of 30), 50 (Right child of 40)
+
+1.
+Balance Check and Rotation:
+    Node 10 becomes unbalanced (BF = -2). This is a Right-Left (RL) imbalance (10 -> 20 -> 15).
+    To correct, a Right Rotation on 20 followed by a Left Rotation on 10 is performed. The node 15 becomes the new local root of this subtree.
+
+2.
+* The height of the resulting AVL tree is 2.
+
+3. 
+Final Balanced AVL Tree Structure:
+    Root: 30
+    Left Child of 30: 15
+        Left Child of 15: 10
+        Right Child of 15: 20
+    Right Child of 30: 40
+        Right Child of 40: 50
