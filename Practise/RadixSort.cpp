@@ -18,18 +18,18 @@ void countsort(int arr[], int n, int pos){
     for(int i=0;i<n;i++){
         count[(arr[i]/pos)%10]++;
     }
-    for(int i=1;i<10;i++){
+    for(int i=1; i<10;i++){
         count[i] += count[i-1];
     }
-    for(int i=n-1; i>=0;i--){
+    for(int i = n-1; i>=0;i--){
         int digit = (arr[i]/pos)%10;
-        output[(count[digit])-1] = arr[i];
+        output[count[digit]-1] = arr[i];
         count[digit]--;
-    }
+    }     
     for(int i=0;i<n;i++){
         arr[i] = output[i];
     }
-    delete[] output;
+    delete output;
 }
 
 void radix(int arr[], int n){

@@ -3,14 +3,14 @@
 using namespace std;
 
 int partition(int arr[], int start, int end){
-    int index = start -1;
+    int index = start - 1;
     int pivot = arr[end];
-    for(int j=start;j<end;j++){
+    for(int j=start; j<end; j++){
         if(arr[j] <= pivot){
             index++;
-            int temp = arr[index];
-            arr[index] = arr[j];
-            arr[j] = temp;
+            int temp = arr[j];
+            arr[j] = arr[index];
+            arr[index] = temp;
         }
     }
     index++;
