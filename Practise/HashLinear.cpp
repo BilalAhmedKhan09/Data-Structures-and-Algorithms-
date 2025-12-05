@@ -6,8 +6,7 @@ class Node {
     public:
     string key;
     string value;
-    bool occupied;   // to check if slot is used
-    bool deleted;    // for handling deletion if needed
+    bool occupied;      
 };
 
 class HashTable {
@@ -22,7 +21,6 @@ public:
 
         for (int i = 0; i < size; i++) {
             table[i].occupied = false;
-            table[i].deleted = false;
         }
     }
 
@@ -34,13 +32,13 @@ public:
         return sum % size;
     }
 
-    void insert(string key, string val){
-        int index = hash(key);
+    void insert(string k, string val){
+        int index = hash(k);
         int start = index;
-        while(table[index].occupied && !table[index].deleted){
-            if(table[index].key == key){
+        while(table[index].occupied){
+            if(table[index].key == k){
                 table[index].value = val;
-                cout << "Updated (" << key << ", " << val << ") at index " << index << endl;
+                cout << "Updated (" << k << ", " << val << ") at index " << index << endl;
                 return;
             }
             index = (index + 1) % size;
@@ -49,20 +47,18 @@ public:
                 return;
             }
         }
-        table[index].key = key;
+        table[index].key = k;
         table[index].value = val;
         table[index].occupied = true;
-        table[index].deleted = false;
-        cout << "Inserted (" << key << ", " << val << ") at index " << index << endl;
+        cout << "Inserted (" << k << ", " << val << ") at index " << index << endl;
     }
 
-        void search(string key) {
-        int index = hash(key);
+    void search(string k) {
+        int index = hash(k);
         int start = index;
 
-        while (table[index].occupied || !table[index].deleted) {
-
-            if (table[index].occupied || table[index].key == key) {
+        while (table[index].occupied) {
+            if (table[index].key == k) {
                 cout << "Found: (" << table[index].key 
                      << ", " << table[index].value 
                      << ") at index " << index << endl;
@@ -73,18 +69,16 @@ public:
             if (index == start) break;
         }
 
-        cout << "Key \"" << key << "\" NOT FOUND!\n";
+        cout << "Key \"" << k << "\" NOT FOUND!\n";
     }
 
     void deleteKey(string key) {
         int index = hash(key);
         int start = index;
 
-        while (table[index].occupied || table[index].deleted) {
-
-            if (table[index].occupied && table[index].key == key) {
+        while (table[index].occupied) {
+            if (table[index].key == key) {
                 table[index].occupied = false;
-                table[index].deleted = true;
                 cout << "Deleted key \"" << key << "\" from index " << index << endl;
                 return;
             }
@@ -109,7 +103,7 @@ public:
 };
 
 int main() {
-    HashTable ht(10);
+    HashTable ht(4);
 
     ht.insert("Apple", "Red");
     ht.insert("Ball", "Round");
@@ -118,7 +112,8 @@ int main() {
     ht.display();
 
     ht.deleteKey("Ball");
-    ht.search("Ball");
+    ht.insert("abll", "Round");
+    ht.search("abll");
 
     ht.display();
 }
