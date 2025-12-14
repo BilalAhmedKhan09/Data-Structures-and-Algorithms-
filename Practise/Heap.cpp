@@ -49,6 +49,7 @@ class Heap{
                 }
                 if(smallest != index){
                     swap(arr[smallest], arr[index]);
+                    index = smallest;
                 }
                 else{
                     return;
